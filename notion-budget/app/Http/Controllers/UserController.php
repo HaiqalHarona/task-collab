@@ -17,7 +17,7 @@ class UserController extends Controller
         // Form input retrieval
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:user,email',
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:6'
 
         ]);
