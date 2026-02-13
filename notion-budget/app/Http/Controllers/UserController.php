@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
         // Form input retrieval
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
+            'email' => 'required|email|max:255|unique:user,email',
             'password' => 'required|string|min:6|confirmed'
 
         ]);
@@ -29,11 +30,14 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        // Initiate email verification process (send email)
+        event(new Registered($user));
+
         // Start the session
         Auth::login($user);
 
-        // Redirect to dashboard
-        return redirect()->route('dashboard')->with('success', 'Account Created Successfully');
+        // Redirect to to email notification page
+        return redirect()->route('verification.notice')->with('success', "Thanks for signing up! Before getting started, we need to verify your email address, an email was sent to {$validated['email']}.");
     }
 
     public function login(Request $request)
@@ -97,6 +101,7 @@ class UserController extends Controller
             $user->update([
                 $provider . '_id' => $socialUser->getId(),
                 'avatar' => $socialUser->getAvatar(),
+                'email_verified_at' => now(),
             ]);
         }
 
@@ -104,6 +109,5 @@ class UserController extends Controller
         Auth::login($user);
 
         return redirect()->route('dashboard')->with('success', 'Login with ' . ucfirst($provider) . ' Successful');
-
     }
 }
