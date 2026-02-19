@@ -74,13 +74,14 @@ class UserController extends Controller
     }
 
     // Forgot Password Handler
-
     public function ForgotPassword(Request $request)
     {
+        // Validate email input
         $request->validate([
             'email' => 'required|email|max:255|exists:user,email',
         ]);
 
+        //Get user data check user exists 
         $user = User::where('email', $request->email)->first();
 
         if ($user && !empty($user->google_id)) {

@@ -42,7 +42,7 @@
                         <input type="password" name="password" class="form-control" placeholder="••••••••" required>
                     </div>
 
-                    <div class="mb-4"> <a href="" class="small text-decoration-none"
+                    <div class="mb-4"> <a href="{{ route('forgot.password') }}" class="small text-decoration-none"
                             style="color: var(--primary);">Forgot Password?</a>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 rounded-3">Log In</button>
