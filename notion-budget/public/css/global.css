@@ -14,7 +14,8 @@
     --border: #3f3f46;
 }
 
-.form-label, .small {
+.form-label,
+.small {
     color: var(--text-main);
 }
 
@@ -25,3 +26,73 @@ body {
     min-height: 100vh;
 }
 
+/* Global styles for Bootstrap components */
+.card,
+.modal-content,
+.dropdown-menu {
+    background-color: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.dropdown-item,
+.nav-link {
+    color: var(--text-muted) !important;
+}
+
+.dropdown-item:hover,
+.nav-link:hover,
+.nav-link.active {
+    background-color: var(--bg-input) !important;
+    color: var(--text-main) !important;
+}
+
+.form-control,
+.form-select {
+    background-color: var(--bg-input) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-main) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(139, 92, 246, 0.25) !important;
+    border-color: var(--primary) !important;
+}
+
+.form-control::placeholder {
+    color: var(--text-muted) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+}
+
+.btn-outline-light {
+    border-color: var(--border) !important;
+    color: var(--text-main) !important;
+}
+
+.btn-outline-light:hover {
+    background-color: var(--bg-input) !important;
+}
+
+.border-bottom,
+.border-top {
+    border-color: var(--border) !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--border) !important;
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
