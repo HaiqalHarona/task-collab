@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Http\Controllers\AuthRoutes;
 
 
 // =================Auth User Routes================
@@ -99,9 +100,13 @@ Route::get('/auth/{provider}/callback', [UserController::class, 'ProviderCallbac
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Show Dashboard
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [AuthRoutes::class, 'dashboard'])->name('dashboard');
+
+    // Show Profile
+    Route::get('/profile', [AuthRoutes::class, 'profile'])->name('profile');
+
+    // Show Workspace
+    Route::get('/workspace', [AuthRoutes::class, 'workspace'])->name('workspace');
 
     // Logout
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');

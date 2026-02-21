@@ -46,12 +46,12 @@
 
                     <ul class="nav nav-pills flex-column mb-auto gap-1">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active rounded-3">
+                            <a href="{{ route('dashboard') }}" class="nav-link active rounded-3">
                                 <i class="bi bi-grid-1x2 me-2"></i> Dashboard
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link rounded-3">
+                            <a href="{{ route('workspace') }}" class="nav-link rounded-3">
                                 <i class="bi bi-briefcase me-2"></i> Workspaces
                             </a>
                         </li>
@@ -70,10 +70,10 @@
                             <strong>{{ Auth::user()->name ?? 'User Name' }}</strong>
                         </a>
                         <ul class="dropdown-menu shadow w-100">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile') }}"><i class="bi bi-person me-2"></i>Profile</a></li>
                             <li><hr class="dropdown-divider border-secondary"></li>
                             <li>
-                                <form action="#" method="POST">
+                                <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button class="dropdown-item text-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i>Sign out</button>
                                 </form>
