@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ProjectMember;
 
 class ProjectController
 {
@@ -26,12 +27,18 @@ class ProjectController
             $iconPath = $filename;
         }
 
-        Project::create([
+        $project = Project::create([
             'name' => $request->name,
             'icon' => $iconPath,
             'description' => $request->description,
             'owner_email' => Auth::user()->email,
             'status' => 'active',
+        ]);
+
+        ProjectMember::create([
+            'project_id' => $project->id,
+            'user_email' => Auth::user()->email,
+            'role' => 'owner',
         ]);
 
         return redirect()->route('projects')->with('success', 'Project created successfully!');

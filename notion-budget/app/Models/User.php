@@ -28,8 +28,8 @@ use Illuminate\Database\Eloquent\Collection;
  * 
  * @property Collection|Comment[] $comments
  * @property Collection|TaskAssignee[] $task_assignees
- * @property Collection|WorkspaceMember[] $workspace_members
- * @property Collection|Workspace[] $workspaces
+ * @property Collection|ProjectMember[] $project_members
+ * @property Collection|Project[] $projects
  *
  * @package App\Models
  */
@@ -61,13 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
 		return $this->hasMany(TaskAssignee::class, 'user_email', 'email');
 	}
 
-	public function workspace_members()
+	public function project_members()
 	{
-		return $this->hasMany(WorkspaceMember::class, 'user_email', 'email');
+		return $this->hasMany(ProjectMember::class, 'user_email', 'email');
 	}
 
-	public function workspaces()
+	public function projects()
 	{
-		return $this->hasMany(Workspace::class, 'owner_email', 'email');
+		return $this->hasMany(Project::class, 'owner_email', 'email');
 	}
 }
