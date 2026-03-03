@@ -27,8 +27,8 @@ class AuthRoutes
         return view('projects-archived');
     }
 
-    public function projectBoard()
+    public function projectBoard(Project $project)
     {
-        return view('project-board');
+        return view('project-board', compact('project'));
     }
 }

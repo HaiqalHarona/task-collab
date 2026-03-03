@@ -5,7 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-
+use Hashids\Hashids;
 /**
  * Class Project
  *
@@ -55,5 +55,35 @@ class Project extends Model
 	public function tags()
 	{
 		return $this->hasMany(Tag::class);
+	}
+	/**
+	 * Helper to get a configured instance of Hashids.
+	 */
+	private function getHashids()
+	{
+		return new Hashids(
+			config('services.hashids.salt'),
+			config('services.hashids.length')
+		);
+	}
+	/**
+	 * Decode the URL parameter back into a database ID.
+	 */
+	public function resolveRouteBinding($value, $field = null)
+	{
+		// Decode the string back into an array
+		$decoded = $this->getHashids()->decode($value);
+
+		// If it fails to decode or the user tampered with it, 404
+		if (empty($decoded)) {
+			abort(404);
+		}
+
+		// Find the project using the decoded integer ID
+		return $this->where('id', $decoded[0])->firstOrFail();
+	}
+	public function getHashedIdAttribute()
+	{
+		return $this->getHashids()->encode($this->id);
 	}
 }

@@ -112,7 +112,7 @@ new class extends Component {
                                 <i class="bi bi-pencil" style="font-size: .85rem;"></i>
                             </button>
 
-                            <a class="btn btn-sm rounded-pill px-3 btn-primary" href="">
+                            <a class="btn btn-sm rounded-pill px-3 btn-primary" href="{{ route('project.board', $project->hashed_id) }}">
                                 Board <i class="bi bi-kanban"></i>
                             </a>
                         </div>

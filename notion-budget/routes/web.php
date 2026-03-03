@@ -134,9 +134,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('can:roleView,project')->group(function () {
 
         // View Project Board
-        Route::get('/projects/{id}', [AuthRoutes::class, 'projectBoard'])->name('project.board');
+        Route::get('/projects/{project}', [AuthRoutes::class, 'projectBoard'])->name('project.board');
 
-        
+
     });
 });
 
