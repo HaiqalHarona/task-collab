@@ -129,4 +129,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Restore Project
     Route::post('/projects/restore', [ProjectController::class, 'ProjectRestore'])->name('project.restore');
+
+    // Project Board Policy Routes
+    Route::middleware('can:roleView,project')->group(function () {
+
+        // View Project Board
+        Route::get('/projects/{id}', [AuthRoutes::class, 'projectBoard'])->name('project.board');
+
+        
+    });
 });
+

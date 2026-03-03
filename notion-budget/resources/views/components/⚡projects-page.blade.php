@@ -32,8 +32,17 @@ new class extends Component {
                 <div class="card h-100 rounded-4 border-0 shadow-sm project-card"
                     style="cursor:pointer; transition: transform .18s, box-shadow .18s;">
 
-                    <div class="rounded-top-4 d-flex align-items-center gap-3 px-4 py-3 position-relative"
-                        style="background: {{ $project->color }}; min-height: 80px;"> {{-- Project Colour --}}
+                    <div class="rounded-top-4 d-flex align-items-center gap-3 px-4 py-4 position-relative overflow-hidden"
+                        style="background: linear-gradient(135deg, {{ $project->color }} 0%, {{ $project->color }}cc 50%, {{ $project->color }}88 100%); min-height: 110px;">
+                        {{-- Project Colour --}}
+
+                        {{-- Decorative ellipses --}}
+                        <div
+                            style="position:absolute;top:-20px;right:-10px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.12);pointer-events:none;">
+                        </div>
+                        <div
+                            style="position:absolute;bottom:-40px;left:20%;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none;">
+                        </div>
 
                         <div class="flex-shrink-0 rounded-3 overflow-hidden"
                             style="width:52px; height:52px; box-shadow: 0 2px 8px rgba(0,0,0,.18);">
@@ -55,22 +64,26 @@ new class extends Component {
                         </div>
                     </div>
 
-                    <div class="card-body px-4 pt-3 pb-2">
-                        <p class="text-muted small mb-3" style="line-height:1.55;">
+                    <div class="card-body px-4 pt-4 pb-3 d-flex flex-column">
+                        <p class="text-muted small mb-4 flex-grow-1" style="line-height:1.6; min-height: 3em;">
                             {{ $project->description }} {{-- Project Description --}}
                         </p>
 
                         <div class="d-flex gap-3 mb-3">
                             <div class="d-flex align-items-center gap-1 text-muted small">
+                                <i class="bi bi-people"></i>
+                                <span>5 Members</span> {{-- Member Count --}}
+                            </div>
+                            <div class="d-flex align-items-center gap-1 text-muted small">
                                 <i class="bi bi-check2-square"></i>
-                                <span>Task Count Placeholder</span> {{-- Task Count --}}
+                                <span>12 Tasks</span> {{-- Task Count --}}
                             </div>
                         </div>
                     </div>
 
                     {{-- Project Members --}}
                     <div
-                        class="card-footer bg-transparent border-top-0 px-4 pb-3 pt-0 d-flex align-items-center justify-content-between">
+                        class="card-footer bg-transparent border-top-0 px-4 pb-4 pt-0 d-flex align-items-center justify-content-between">
 
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle border border-2 border-white overflow-hidden"
@@ -99,9 +112,9 @@ new class extends Component {
                                 <i class="bi bi-pencil" style="font-size: .85rem;"></i>
                             </button>
 
-                            <button class="btn btn-sm rounded-pill px-3 btn-primary">
-                                Open <i class="bi bi-arrow-right ms-1"></i>
-                            </button>
+                            <a class="btn btn-sm rounded-pill px-3 btn-primary" href="">
+                                Board <i class="bi bi-kanban"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

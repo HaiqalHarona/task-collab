@@ -26,4 +26,9 @@ class AuthRoutes
     {
         return view('projects-archived');
     }
+
+    public function projectBoard()
+    {
+        return view('project-board');
+    }
 }
