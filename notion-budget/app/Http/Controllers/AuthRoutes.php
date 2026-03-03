@@ -31,4 +31,9 @@ class AuthRoutes
     {
         return view('project-board', compact('project'));
     }
+
+    public function projectMembers(Project $project)
+    {
+        return view('project-members', compact('project'));
+    }
 }

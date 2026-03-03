@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Http\Controllers\AuthRoutes;
 use App\Http\Controllers\ProjectController;
-
+use App\Http\Controllers\ProjectBoardController;
 
 // =================Auth User Routes================
 
@@ -130,13 +130,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Restore Project
     Route::post('/projects/restore', [ProjectController::class, 'ProjectRestore'])->name('project.restore');
 
+    // Send Member Invite (outside policy group — auth check done in controller)
+    Route::post('/projects/invite/email', [ProjectBoardController::class, 'MemberInvite'])->name('project.invite.email');
+
     // Project Board Policy Routes
     Route::middleware('can:roleView,project')->group(function () {
 
         // View Project Board
         Route::get('/projects/{project}', [AuthRoutes::class, 'projectBoard'])->name('project.board');
 
+        // View Project Members
+        Route::get('/projects/{project}/members', [AuthRoutes::class, 'projectMembers'])->name('project.members');
 
     });
-});
 
+    // Accept Project Invite Route
+    Route::get('/project/invite/{project}/email', [ProjectBoardController::class, 'AcceptInvite'])->name('project.invite.accept')->middleware('signed');
+});

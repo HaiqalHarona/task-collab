@@ -13,7 +13,6 @@
         "doctrine/dbal": "*",
         "haruncpi/laravel-id-generator": "*",
         "hashids/hashids": "^5.0",
-        "junaidnasir/larainvite": "^12.0",
         "laravel/framework": "^12.0",
         "laravel/reverb": "^1.8",
         "laravel/socialite": "*",

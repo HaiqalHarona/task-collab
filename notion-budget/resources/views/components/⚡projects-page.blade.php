@@ -73,7 +73,7 @@ new class extends Component {
                         <div class="d-flex gap-3 mb-3">
                             <div class="d-flex align-items-center gap-1 text-muted small">
                                 <i class="bi bi-people"></i>
-                                <span>5 Members</span> {{-- Member Count --}}
+                                <span>{{ $project->members_count }} Members</span> {{-- Member Count --}}
                             </div>
                             <div class="d-flex align-items-center gap-1 text-muted small">
                                 <i class="bi bi-check2-square"></i>
@@ -87,31 +87,42 @@ new class extends Component {
                         class="card-footer bg-transparent border-top-0 px-4 pb-4 pt-0 d-flex align-items-center justify-content-between">
 
                         <div class="d-flex align-items-center">
-                            <div class="rounded-circle border border-2 border-white overflow-hidden"
-                                style="width:32px;height:32px;margin-right:-10px;z-index:4;box-shadow:0 1px 4px rgba(0,0,0,.15);"
-                                title="Alice">
-                                <img src="https://ui-avatars.com/api/?name=Alice&background=6c63ff&color=fff&size=32"
-                                    width="32" height="32" alt="Alice">
-                            </div>
-                            <div class="rounded-circle border border-2 border-white d-flex align-items-center justify-content-center bg-secondary text-white"
-                                style="width:32px;height:32px;z-index:1;font-size:.65rem;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.15);">
-                                +2
-                            </div>
+                            @foreach($project->members->take(5) as $index => $member)
+                                @php
+                                    $user = $member->user;
+                                    $avatarUrl = empty($user->avatar)
+                                        ? 'https://ui-avatars.com/api/?name=' . urlencode($user->name ?? 'User') . '&background=6366f1&color=fff'
+                                        : (str_starts_with($user->avatar, 'http') ? $user->avatar : Storage::url($user->avatar));
+                                @endphp
+                                <div class="rounded-circle border border-2 border-white overflow-hidden"
+                                    style="width:32px;height:32px;margin-right:-10px;z-index:{{ 5 - $index }};box-shadow:0 1px 4px rgba(0,0,0,.15);"
+                                    title="{{ $user->name ?? 'User' }}">
+                                    <img src="{{ $avatarUrl }}" width="32" height="32" alt="{{ $user->name ?? 'User' }}">
+                                </div>
+                            @endforeach
+                            @if($project->members_count > 5)
+                                <div class="rounded-circle border border-2 border-white d-flex align-items-center justify-content-center bg-secondary text-white"
+                                    style="width:32px;height:32px;z-index:0;font-size:.65rem;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.15);">
+                                    +{{ $project->members_count - 5 }}
+                                </div>
+                            @endif
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             {{-- Edit button --}}
-                            <button type="button" class="btn btn-sm d-flex align-items-center justify-content-center"
-                                data-bs-toggle="modal" data-bs-target="#editProjectModal"
-                                data-project-id="{{ $project->id }}" data-project-name="{{ $project->name }}"
-                                data-project-description="{{ $project->description }}"
-                                data-project-color="{{ $project->color ?? '#6c63ff' }}"
-                                data-project-icon="{{ $project->icon ? Storage::url($project->icon) : '' }}"
-                                style="width: 32px; height: 32px; padding: 0; border-radius: 50%; background: transparent; color: #6c757d; transition: all 0.2s; border: 1px solid transparent;"
-                                onmouseover="this.style.background='rgba(108, 99, 255, 0.1)'; this.style.color='#6c63ff';"
-                                onmouseout="this.style.background='transparent'; this.style.color='#6c757d';"
-                                title="Edit project" onclick="event.stopPropagation()">
-                                <i class="bi bi-pencil" style="font-size: .85rem;"></i>
-                            </button>
+                            @if($project->members->firstWhere('user_email', Auth::user()->email)?->role === 'owner')
+                                <button type="button" class="btn btn-sm d-flex align-items-center justify-content-center"
+                                    data-bs-toggle="modal" data-bs-target="#editProjectModal"
+                                    data-project-id="{{ $project->id }}" data-project-name="{{ $project->name }}"
+                                    data-project-description="{{ $project->description }}"
+                                    data-project-color="{{ $project->color ?? '#6c63ff' }}"
+                                    data-project-icon="{{ $project->icon ? Storage::url($project->icon) : '' }}"
+                                    style="width: 32px; height: 32px; padding: 0; border-radius: 50%; background: transparent; color: #6c757d; transition: all 0.2s; border: 1px solid transparent;"
+                                    onmouseover="this.style.background='rgba(108, 99, 255, 0.1)'; this.style.color='#6c63ff';"
+                                    onmouseout="this.style.background='transparent'; this.style.color='#6c757d';"
+                                    title="Edit project" onclick="event.stopPropagation()">
+                                    <i class="bi bi-pencil" style="font-size: .85rem;"></i>
+                                </button>
+                            @endif
 
                             <a class="btn btn-sm rounded-pill px-3 btn-primary"
                                 href="{{ route('project.board', $project->hashed_id) }}">
