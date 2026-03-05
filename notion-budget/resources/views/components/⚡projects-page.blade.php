@@ -109,23 +109,23 @@ new class extends Component {
                         </div>
                         <div class="d-flex align-items-center gap-2">
                             {{-- Edit button --}}
-                            @if($project->members->firstWhere('user_email', Auth::user()->email)?->role === 'owner')
-                                <button type="button" class="btn btn-sm d-flex align-items-center justify-content-center"
-                                    data-bs-toggle="modal" data-bs-target="#editProjectModal"
-                                    data-project-id="{{ $project->id }}" data-project-name="{{ $project->name }}"
-                                    data-project-description="{{ $project->description }}"
-                                    data-project-color="{{ $project->color ?? '#6c63ff' }}"
-                                    data-project-icon="{{ $project->icon ? Storage::url($project->icon) : '' }}"
-                                    style="width: 32px; height: 32px; padding: 0; border-radius: 50%; background: transparent; color: #6c757d; transition: all 0.2s; border: 1px solid transparent;"
-                                    onmouseover="this.style.background='rgba(108, 99, 255, 0.1)'; this.style.color='#6c63ff';"
-                                    onmouseout="this.style.background='transparent'; this.style.color='#6c757d';"
-                                    title="Edit project" onclick="event.stopPropagation()">
-                                    <i class="bi bi-pencil" style="font-size: .85rem;"></i>
-                                </button>
-                            @endif
+                                @can('roleEditProject', $project)
+                                    <button type="button" class="btn btn-sm d-flex align-items-center justify-content-center"
+                                        data-bs-toggle="modal" data-bs-target="#editProjectModal"
+                                        data-project-id="{{ $project->id }}" data-project-name="{{ $project->name }}"
+                                        data-project-description="{{ $project->description }}"
+                                        data-project-color="{{ $project->color ?? '#6c63ff' }}"
+                                        data-project-icon="{{ $project->icon ? Storage::url($project->icon) : '' }}"
+                                        style="width: 32px; height: 32px; padding: 0; border-radius: 50%; background: transparent; color: #6c757d; transition: all 0.2s; border: 1px solid transparent;"
+                                        onmouseover="this.style.background='rgba(108, 99, 255, 0.1)'; this.style.color='#6c63ff';"
+                                        onmouseout="this.style.background='transparent'; this.style.color='#6c757d';"
+                                        title="Edit project" onclick="event.stopPropagation()">
+                                        <i class="bi bi-pencil" style="font-size: .85rem;"></i>
+                                    </button>
+                                @endcan
 
                             <a class="btn btn-sm rounded-pill px-3 btn-primary"
-                                href="{{ route('project.board', $project->hashed_id) }}">
+                                href="{{ route('project.board', $project->hashed_id) }}" target="_blank">
                                 Board <i class="bi bi-kanban"></i>
                             </a>
                         </div>

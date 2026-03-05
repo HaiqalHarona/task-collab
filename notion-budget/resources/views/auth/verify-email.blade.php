@@ -1,7 +1,6 @@
 @extends('layouts.auth')
 
 @section('content')
-    <livewire:email-verify />
     <div class="container d-flex flex-column justify-content-center align-items-center">
 
         <div
@@ -47,11 +46,6 @@
     </div>
 
     <script>
-        // auto refresh to check for email verification (VERY SCUFFED :D)
-        setInterval(function () {
-            window.location.reload();
-        }, 2000);
-
         @if (session('message'))
             notyf.success('A new verification link has been sent.');
         @endif

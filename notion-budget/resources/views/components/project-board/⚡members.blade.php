@@ -103,8 +103,8 @@ new class extends Component {
                             <td>
                                 <div class="member-info">
                                     @if($member->user->avatar)
-                                        <img src="{{ Storage::url($member->user->avatar) }}" class="member-avatar"
-                                            alt="{{ $member->user->name }}">
+                                        <img src="{{ Str::startsWith($member->user->avatar, ['http://', 'https://']) ? $member->user->avatar : Storage::url($member->user->avatar) }}"
+                                            class="member-avatar" alt="{{ $member->user->name }}">
                                     @else
                                         <img src="https://ui-avatars.com/api/?name={{ urlencode($member->user->name) }}&background={{ $member->role === 'owner' ? '8b5cf6' : ($member->role === 'admin' ? '06b6d4' : '3f3f46') }}&color=fff&size=40&bold=true"
                                             class="member-avatar" alt="{{ $member->user->name }}">
@@ -128,12 +128,14 @@ new class extends Component {
                                 @if($member->role === 'owner')
                                     <span class="role-badge role-owner">Owner</span>
                                 @else
-                                    <select class="form-select form-select-sm"
-                                        style="width:auto; font-size:.8rem; border-radius:8px;" name="roles[{{ $member->id }}]">
-                                        <option value="admin" {{ $member->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                                        <option value="member" {{ $member->role === 'member' ? 'selected' : '' }}>Member</option>
-                                        <option value="viewer" {{ $member->role === 'viewer' ? 'selected' : '' }}>Viewer</option>
-                                    </select>
+                                    @can('roleUserManagement', $this->project)
+                                        <select class="form-select form-select-sm"
+                                            style="width:auto; font-size:.8rem; border-radius:8px;" name="roles[{{ $member->id }}]">
+                                            <option value="admin" {{ $member->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                                            <option value="member" {{ $member->role === 'member' ? 'selected' : '' }}>Member</option>
+                                            <option value="viewer" {{ $member->role === 'viewer' ? 'selected' : '' }}>Viewer</option>
+                                        </select>
+                                    @endcan
                                 @endif
                             </td>
                             <td>

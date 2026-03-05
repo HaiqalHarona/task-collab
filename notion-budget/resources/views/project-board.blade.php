@@ -1,16 +1,11 @@
 @extends('layouts.app')
 
+@section('no-sidebar', true)
+
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/project-board.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/project-board.css') }}">
 
-    {{-- Breadcrumb --}}
-    <div class="board-breadcrumb mb-2">
-        <a href="{{ route('projects') }}"><i class="bi bi-arrow-left me-1"></i>Projects</a>
-        <span class="mx-2">/</span>
-        <span>Project Board</span>
-    </div>
-
-    <livewire:project-board.header :projectId="$project->id"/>
+    <livewire:project-board.header :projectId="$project->id" />
     {{-- Kanban Board --}}
     <div class="kanban-board">
 

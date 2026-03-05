@@ -44,7 +44,8 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3 col-lg-2 d-md-block sidebar collapse offcanvas-md offcanvas-start" id="sidebarMenu">
+            @if(!View::hasSection('no-sidebar'))
+            <div class="col-md-3 col-lg-3 d-md-block sidebar collapse offcanvas-md offcanvas-start" id="sidebarMenu">
                 <div class="offcanvas-header border-bottom border-secondary">
                     <h5 class="offcanvas-title" style="color: var(--primary);">{{ config('app.name') }}</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
@@ -123,8 +124,9 @@
                     </div>
                 </div>
             </div>
+            @endif
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-5 py-4 main-content">
+            <main class="{{ View::hasSection('no-sidebar') ? 'col-12' : 'col-md-9 ms-sm-auto col-lg-9' }} px-md-5 py-4 main-content">
                 @yield('content')
             </main>
         </div>

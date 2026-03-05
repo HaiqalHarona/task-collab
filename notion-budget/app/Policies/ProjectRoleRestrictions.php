@@ -24,14 +24,35 @@ class ProjectRoleRestrictions
     // Check if the user can view the project (Even though the link is hashed)
     public function roleView(User $user, Project $project): bool
     {
-        if($this->isOwner($user, $project)){
+        if ($this->isOwner($user, $project)) {
             return true;
         }
         return $this->getMembership($user, $project) !== null;
     }
 
-    public function roleProjectActions(User $user, Project $project)
+    // Manage User Access to create tasks and pools (Viewer is restricted in this function)
+    public function roleBoardActions(User $user, Project $project): bool
     {
+        if ($this->isOwner($user, $project)) {
+            return true;
+        }
+        $membership = $this->getMembership($user, $project);
+        return $membership && in_array($membership->role, ['admin', 'member']);
+    }
 
+    // Manage User Management within project (Owner and Admin only)
+    public function roleUserManagement(User $user, Project $project): bool
+    {
+        if ($this->isOwner($user, $project)) {
+            return true;
+        }
+        $membership = $this->getMembership($user, $project);
+        return $membership && $membership->role === 'admin';
+    }
+
+    // Delete Project Restriction
+    public function roleEditProject(User $user, Project $project): bool
+    {
+        return $this->isOwner($user, $project);
     }
 }
