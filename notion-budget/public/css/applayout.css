@@ -103,6 +103,20 @@
     color: #fff !important;
 }
 
+.sidebar .nav-link {
+    font-size: 1.1rem;
+    padding: 12px 16px;
+}
+
+.sidebar .nav-link i {
+    font-size: 1.3rem;
+}
+
+.sidebar hr {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
 /* ── User dropdown trigger ── */
 .user-dropdown-toggle {
     display: flex;
@@ -129,8 +143,8 @@
 }
 
 .user-avatar-ring {
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid rgba(255, 255, 255, 0.15);
@@ -143,12 +157,12 @@
 }
 
 .user-name-text {
-    font-size: .875rem;
+    font-size: 1.05rem;
     font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 130px;
+    max-width: 140px;
 }
 
 .user-caret {
@@ -188,8 +202,8 @@
 
 .user-dropdown-menu .dropdown-item {
     border-radius: 10px;
-    padding: 9px 14px;
-    font-size: .875rem;
+    padding: 10px 16px;
+    font-size: 1rem;
     color: var(--text-main);
     display: flex;
     align-items: center;

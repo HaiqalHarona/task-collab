@@ -145,6 +145,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // View Project Members
         Route::get('/projects/{project}/members', [AuthRoutes::class, 'projectMembers'])->name('project.members');
 
+        // Add Tags
+        Route::post('/projects/{project}/tags', [ProjectController::class, 'AddTags'])->name('project.tags.add');
+
     });
 
     // Accept Project Invite Route

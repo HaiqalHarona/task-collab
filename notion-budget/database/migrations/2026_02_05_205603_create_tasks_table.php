@@ -12,7 +12,6 @@ return new class extends Migration {
             $table->unsignedBigInteger('pool_id')->index('tasks_pool_id');
             $table->string('title');
             $table->text('description')->nullable();
-            $table->enum('priority', ['low', 'medium', 'high'])->nullable()->default('medium');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->unsignedInteger('position')->default(0);

@@ -5,10 +5,9 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/project-board.css') }}">
 
-    <livewire:project-board.header :projectId="$project->id" />
+    <livewire:project-board.header :projectId="$project->id"/>
     {{-- Kanban Board --}}
     <div class="kanban-board">
-
         {{-- ── Column: To Do ── --}}
         <div class="kanban-column">
             <div class="kanban-column-header">
@@ -27,6 +26,11 @@
                     <div class="task-title">Design landing page mockup</div>
                     <div class="task-desc">Create high-fidelity mockups for the new marketing landing page with responsive
                         layouts.</div>
+                    <div class="task-dates">
+                        <i class="bi bi-calendar3"></i> Mar 1
+                        <span class="date-separator"><i class="bi bi-arrow-right"></i></span>
+                        <i class="bi bi-calendar3"></i> Mar 5
+                    </div>
                     <div class="task-meta">
                         <div class="d-flex align-items-center gap-1">
                             <span class="task-tag tag-design">Design</span>
@@ -89,6 +93,11 @@
                     <div class="task-title">Implement user authentication flow</div>
                     <div class="task-desc">Build login, register, password reset with email verification using Laravel
                         Breeze.</div>
+                    <div class="task-dates">
+                        <i class="bi bi-calendar3"></i> Feb 25
+                        <span class="date-separator"><i class="bi bi-arrow-right"></i></span>
+                        <i class="bi bi-calendar3"></i> Mar 8
+                    </div>
                     <div class="task-meta">
                         <div class="d-flex align-items-center gap-1">
                             <span class="task-tag tag-feature">Feature</span>
@@ -106,6 +115,11 @@
                 <div class="task-card">
                     <div class="task-title">Fix sidebar navigation bug on mobile</div>
                     <div class="task-desc">The offcanvas sidebar is not closing properly after link click on iOS Safari.
+                    </div>
+                    <div class="task-dates">
+                        <i class="bi bi-calendar3"></i> Mar 1
+                        <span class="date-separator"><i class="bi bi-arrow-right"></i></span>
+                        <i class="bi bi-calendar3"></i> Mar 3
                     </div>
                     <div class="task-meta">
                         <span class="task-tag tag-bug">Bug</span>
@@ -138,6 +152,11 @@
                 <div class="task-card">
                     <div class="task-title">Review pull request #42</div>
                     <div class="task-desc">Code review for the new dashboard stats component and Livewire integration.</div>
+                    <div class="task-dates">
+                        <i class="bi bi-calendar3"></i> Mar 2
+                        <span class="date-separator"><i class="bi bi-arrow-right"></i></span>
+                        <i class="bi bi-calendar3"></i> Mar 3
+                    </div>
                     <div class="task-meta">
                         <span class="task-tag tag-medium">Medium</span>
                         <div class="d-flex align-items-center gap-1">
@@ -191,6 +210,11 @@
                 {{-- Task 9 --}}
                 <div class="task-card" style="opacity:.7;">
                     <div class="task-title" style="text-decoration:line-through;">Configure CI/CD pipeline</div>
+                    <div class="task-dates">
+                        <i class="bi bi-calendar3"></i> Feb 20
+                        <span class="date-separator"><i class="bi bi-arrow-right"></i></span>
+                        <i class="bi bi-calendar3"></i> Feb 28
+                    </div>
                     <div class="task-meta">
                         <span class="task-tag tag-feature">Feature</span>
                         <img src="https://ui-avatars.com/api/?name=RK&background=ef4444&color=fff&size=24&bold=true"

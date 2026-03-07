@@ -83,7 +83,7 @@
 
                     <div class="dropdown">
                         <a href="#" class="user-dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ empty(Auth::user()->avatar) ? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name ?? 'User') . '&background=6366f1&color=fff' : (str_starts_with(Auth::user()->avatar, 'http') ? Auth::user()->avatar : Storage::url(Auth::user()->avatar)) }}"
+                            <img src="{{ empty(Auth::user()->avatar) ? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name ?? 'User') . '&background=6366f1&color=fff' : (Str::startsWith(Auth::user()->avatar, ['http://', 'https://']) ? Auth::user()->avatar : Storage::url(Auth::user()->avatar)) }}"
                                 alt="{{ Auth::user()->name ?? 'User' }}" class="user-avatar-ring">
                             <span class="user-name-text">{{ Auth::user()->name ?? 'User Name' }}</span>
                             <i class="bi bi-chevron-up user-caret"></i>

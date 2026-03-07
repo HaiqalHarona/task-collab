@@ -7,6 +7,8 @@ use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ProjectMember;
+use App\Models\Tag;
+use App\Models\TaskTag;
 
 class ProjectController
 {
@@ -136,8 +138,35 @@ class ProjectController
             'roles.*' => 'in:admin,member,viewer',
             'user_email' => 'required|email|exists:project_members,user_email',
         ]);
-
+        // Finish This HOBO
         $projectFind = Project::find($request->project_id);
+
+    }
+
+    public function AddTags(Request $request, Project $project)
+    {
+        $request->validate([
+            'project_id' => 'required|exists:projects,id',
+            'tag_name' => 'required|string|max:255',
+            'tag_color' => 'required|string|max:7',
+        ]);
+
+        $tag = Tag::create([
+            'project_id' => $project->id,
+            'name' => $request->tag_name,
+            'color' => $request->tag_color,
+        ]);
+
+        if ($tag) {
+            return redirect()->route('project.board', $project->hashed_id)->with('success', 'Tag Created Successfully');
+        } else {
+            return redirect()->route('project.board', $project->hashed_id)->with('error', 'Tag Not Created');
+        }
+
+    }
+
+    public function AddTask(Request $request, Project $project)
+    {
         
     }
 }

@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $pool_id
  * @property string $title
  * @property string|null $description
- * @property string|null $priority
  * @property Carbon|null $start_date
  * @property Carbon|null $end_date
  * @property int $position
@@ -40,7 +39,6 @@ class Task extends Model
 		'pool_id',
 		'title',
 		'description',
-		'priority',
 		'start_date',
 		'end_date',
 		'position',

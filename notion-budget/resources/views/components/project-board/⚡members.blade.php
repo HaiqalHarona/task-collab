@@ -67,18 +67,20 @@ new class extends Component {
             <span class="text-muted" style="font-size:.85rem;">{{ $this->getMembers->count() }} members in this
                 project</span>
         </div>
-        <div class="d-flex gap-2">
-            <button type="submit" form="roleChangeForm"
-                class="btn btn-outline-success btn-sm d-flex align-items-center gap-1"
-                style="border-radius:10px; font-size:.8rem;">
-                <i class="bi bi-check-lg"></i> Save Changes
-            </button>
-            <button class="btn btn-primary btn-sm d-flex align-items-center gap-1"
-                style="border-radius:10px; font-size:.8rem; box-shadow: 0 3px 12px rgba(139,92,246,.3);"
-                data-bs-toggle="modal" data-bs-target="#membersModal">
-                <i class="bi bi-person-plus"></i> Invite Member
-            </button>
-        </div>
+        @can('roleUserManagement', $this->project)
+            <div class="d-flex gap-2">
+                <button type="submit" form="roleChangeForm"
+                    class="btn btn-outline-success btn-sm d-flex align-items-center gap-1"
+                    style="border-radius:10px; font-size:.8rem;">
+                    <i class="bi bi-check-lg"></i> Save Changes
+                </button>
+                <button class="btn btn-primary btn-sm d-flex align-items-center gap-1"
+                    style="border-radius:10px; font-size:.8rem; box-shadow: 0 3px 12px rgba(139,92,246,.3);"
+                    data-bs-toggle="modal" data-bs-target="#membersModal">
+                    <i class="bi bi-person-plus"></i> Invite Member
+                </button>
+            </div>
+        @endcan
     </div>
 
     {{-- Members Table --}}
@@ -142,11 +144,13 @@ new class extends Component {
                                 <span class="member-joined">{{ $member->added_at?->diffForHumans() ?? '—' }}</span>
                             </td>
                             <td class="text-end">
-                                @if($member->role !== 'owner' && $member->user_email !== Auth::user()->email)
-                                    <button class="btn btn-sm btn-outline-danger"
-                                        onclick="if(confirm('Are you sure you want to remove {{ $member->user->name }} from this project?')) { @this.removeMember({{ $member->id }}) }">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                @if($member->user_email !== Auth::user()->email && $member->role !== 'owner')
+                                    @can('roleUserManagement', $this->project)
+                                        <button class="btn btn-sm btn-outline-danger"
+                                            onclick="if(confirm('Are you sure you want to remove {{ $member->user->name }} from this project?')) { @this.removeMember({{ $member->id }}) }">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    @endcan
                                 @else
                                     <span class="text-muted" style="font-size:.75rem;">—</span>
                                 @endif
