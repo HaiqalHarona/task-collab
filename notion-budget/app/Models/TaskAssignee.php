@@ -25,6 +25,11 @@ class TaskAssignee extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
+	protected $fillable = [
+		'task_id',
+		'user_email'
+	];
+
 	protected $casts = [
 		'task_id' => 'int'
 	];

@@ -55,4 +55,9 @@ class ProjectRoleRestrictions
     {
         return $this->isOwner($user, $project);
     }
+
+    // User Delete Task Restriction (Members that created the task and owners and admin)
+    public function deleteTask(User $user, Project $project): bool
+    {
+    }
 }

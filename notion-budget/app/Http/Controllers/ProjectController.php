@@ -168,11 +168,53 @@ class ProjectController
 
     }
 
-    public function AddTask(Request $request, Project $project)
+    public function AddTasks(Request $request, Project $project)
     {
         $request->validate([
-
+            'pool_id' => 'required|exists:pools,id',
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'task_tags' => 'nullable|array',
+            'task_tags.*' => 'exists:tags,id',
+            'assignees' => 'nullable|array',
+            'assignees.*' => 'exists:user,email',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
         ]);
+
+        $task = Task::create([
+            'pool_id' => $request->pool_id,
+            'description' => $request->description,
+            'title' => $request->title,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        if (!$task) {
+            return redirect()->route('project.board', $project->hashed_id)->with('error', 'Task Not Created');
+        }
+
+        if ($request->has('task_tags')) {
+
+            foreach ($request->task_tags as $tag) {
+                TaskTag::create([
+                    'task_id' => $task->id,
+                    'tag_id' => $tag,
+                ]);
+            }
+        }
+
+        if ($request->has('assignees')) {
+            foreach ($request->assignees as $assignees) {
+                TaskAssignee::create([
+                    'task_id' => $task->id,
+                    'user_email' => $assignees,
+                ]);
+            }
+        }
+
+        return redirect()->route('project.board', $project->hashed_id)->with('success', 'Task Created Successfully');
+
     }
 
     public function AddPools(Request $request, Project $project)

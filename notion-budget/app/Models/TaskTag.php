@@ -25,6 +25,11 @@ class TaskTag extends Model
 	public $incrementing = false;
 	public $timestamps = false;
 
+	protected $fillable = [
+		'task_id',
+		'tag_id'
+	];
+
 	protected $casts = [
 		'task_id' => 'int',
 		'tag_id' => 'int'
