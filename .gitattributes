@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+Logo.ai merge=ours
+schema-diagram.png merge=ours
+velocity_schema.sql merge=ours
