@@ -158,10 +158,10 @@ new class extends Component {
                                     @foreach($task->task_assignees->take(3) as $assignee)
                                         @if($assignee->user)
                                             @php
-                                                $u = $assignee->user;
-                                                $avatar = $u->avatar
-                                                    ? (Str::startsWith($u->avatar, ['http://', 'https://']) ? $u->avatar : Storage::url($u->avatar))
-                                                    : 'https://ui-avatars.com/api/?name=' . urlencode($u->name) . '&background=' . substr(md5($u->email), 0, 6) . '&color=fff&size=24&bold=true';
+                $u = $assignee->user;
+                $avatar = $u->avatar
+                    ? (Str::startsWith($u->avatar, ['http://', 'https://']) ? $u->avatar : Storage::url($u->avatar))
+                    : 'https://ui-avatars.com/api/?name=' . urlencode($u->name) . '&background=' . substr(md5($u->email), 0, 6) . '&color=fff&size=24&bold=true';
                                             @endphp
                                             <img src="{{ $avatar }}" class="task-avatar"
                                                 style="margin-left: -5px; border: 2px solid var(--bg-color, #fff); border-radius: 50%;"
@@ -185,10 +185,10 @@ new class extends Component {
                             @forelse($task->task_assignees as $assignee)
                                 @if($assignee->user)
                                     @php
-                                        $u = $assignee->user;
-                                        $avatar = $u->avatar
-                                            ? (Str::startsWith($u->avatar, ['http://', 'https://']) ? $u->avatar : Storage::url($u->avatar))
-                                            : 'https://ui-avatars.com/api/?name=' . urlencode($u->name) . '&background=' . substr(md5($u->email), 0, 6) . '&color=fff&size=32&bold=true';
+                $u = $assignee->user;
+                $avatar = $u->avatar
+                    ? (Str::startsWith($u->avatar, ['http://', 'https://']) ? $u->avatar : Storage::url($u->avatar))
+                    : 'https://ui-avatars.com/api/?name=' . urlencode($u->name) . '&background=' . substr(md5($u->email), 0, 6) . '&color=fff&size=32&bold=true';
                                     @endphp
                                     <div class="d-flex align-items-center gap-2 mb-2">
                                         <img src="{{ $avatar }}" class="rounded-circle"
@@ -354,14 +354,14 @@ new class extends Component {
                                     <div class="user-search-wrapper" x-data='{
                                                                     search: "",
                                                                     users: {{ json_encode($this->project->members->map(fn($m) => [
-                "name" => $m->user->name,
-                "email" => $m->user->email,
-                "avatar" => $m->user->avatar
-                    ? (Str::startsWith($m->user->avatar, ["http://", "https://"])
-                        ? $m->user->avatar
-                        : Storage::url($m->user->avatar))
-                    : "https://ui-avatars.com/api/?name=" . urlencode($m->user->name) . "&background=" . substr(md5($m->user->email), 0, 6) . "&color=fff&size=32&bold=true"
-            ])->values()->toArray(), JSON_HEX_APOS) }},
+        "name" => $m->user->name,
+        "email" => $m->user->email,
+        "avatar" => $m->user->avatar
+            ? (Str::startsWith($m->user->avatar, ["http://", "https://"])
+                ? $m->user->avatar
+                : Storage::url($m->user->avatar))
+            : "https://ui-avatars.com/api/?name=" . urlencode($m->user->name) . "&background=" . substr(md5($m->user->email), 0, 6) . "&color=fff&size=32&bold=true"
+    ])->values()->toArray(), JSON_HEX_APOS) }},
                                                                     selected: [],
                                                                     get filtered() {
                                                                         if (!this.search) return this.users;
