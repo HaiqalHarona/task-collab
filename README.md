@@ -1,6 +1,6 @@
-# Velocity
+# Velocity 
 
-A Real-Time Kanban Project Management System
+A Real-Time Kanban Project Management System (Deployed in velocity.effoc.org)
 
 Built with Laravel, Reverb WebSocket, Livewire, and Bootstrap. Self-hosted on a two-server infrastructure with Cloudflare Tunnel, Nginx, PHP-FPM, and Portainer.
 
